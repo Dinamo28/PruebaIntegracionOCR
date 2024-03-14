@@ -103,5 +103,26 @@ namespace ClbDatOCR
                 return null;
             }
         }
+
+        public ClsModResult BorrarTranscripcion(int idDocumento, int idUsuario)
+        {
+            ClsModResult result = new ClsModResult();
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@idDocumento", idDocumento);
+            parameters.Add("@idUsuario", idUsuario);
+            try
+            {
+                using (var conexion = new SqlConnection(base.GetConnectionString()))
+                {
+                    int res = conexion.QueryFirstOrDefault<int>("SpdBorrarTranscripcion", parameters, commandType: System.Data.CommandType.StoredProcedure);
+                    result.Object = res != 0 ? res : null;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.MsgError = $"{TAG} - BorrarTranscripcion() : {ex.Message}";
+            }
+            return result;
+        }
     }
 }
