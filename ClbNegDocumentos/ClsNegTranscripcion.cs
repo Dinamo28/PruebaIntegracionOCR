@@ -33,6 +33,10 @@ namespace ClbNegOCR
             return _clsDatTranscripcion.GetLegibilidad();
         }
 
+        public ClsModResult BorrarTranscripcion(int idDocumento, int idUsuario)
+        {
+            return _clsDatTranscripcion.BorrarTranscripcion(idDocumento, idUsuario);
+        }
 
         //public string CreatePdfFile(string text, string nombre)
         //{

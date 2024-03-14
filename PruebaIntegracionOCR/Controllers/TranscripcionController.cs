@@ -15,7 +15,9 @@ namespace PruebaIntegracionOCR.Controllers
             _clsNegTranscripcion = new ClsNegTranscripcion();
         }
 
+
         [HttpPost("Analyze")]
+        [RequestSizeLimit(200_000_000)]
         public async Task<ClsModResult> TranscribirDocumento([FromForm] IFormFile file)
         {
             ClsModResult clsModResult = new ClsModResult();
@@ -46,6 +48,13 @@ namespace PruebaIntegracionOCR.Controllers
         public IEnumerable<ClsModLegibilidad> GetLegibilidad()
         {
             return _clsNegTranscripcion.GetLegibilidad();
+        }
+
+        [HttpDelete("Borrar")]
+        public ClsModResult BorrarTranscripcion(int idDocumento, int idUsuario)
+        {
+            Console.WriteLine("EntroBorrar: IdTransc" + idDocumento + " | IdUser " + idUsuario);
+            return _clsNegTranscripcion.BorrarTranscripcion(idDocumento, idUsuario);
         }
     }
 }
